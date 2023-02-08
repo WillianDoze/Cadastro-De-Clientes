@@ -1,0 +1,82 @@
+<!-- Nome:
+CPF:
+RG:
+Endereço: (auto preencher o endereço com base no CEP digitado)
+Nº
+E-mail:
+Envio de arquivo: (pdf, doc, png)
+Gravar a data e hora da inclusão do registro e exibir no form -->
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de cliente</title>
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/media-query.css">
+</head>
+<body>
+    
+    <main>
+        <section id="login">
+            <div id="imagem"></div>
+            <h1>Cadastro de Clientes</h1>
+        <div id="cadastro">
+            <br>
+            <p>Olá, realize o seu cadastro, caso seja cadastrado, clique no campo buscar, para encontrar as informações!</p>
+            <h1>Buscar</h1>
+                <input type="text" name="nome" id="ibusca" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
+
+            <button>Clique para carregar as informações!</button>
+
+        <form action="login.php" method="post" autocomplete="on">
+
+                <input id="Nome" type="text" name="nome" placeholder="Digite seu nome...">
+
+                <input id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF...." autocomplete="cc-number">
+
+                <input id="RG" id="RG" type="text" name="RG" placeholder="Digite o número do seu RG...." autocomplete="cc-number">
+
+                <input id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP....">
+
+                <input id="End" type="text" name="Endereco" placeholder="Seu endereço....">
+
+                <input id="cidade" type="text" name="Endereco" placeholder="Sua cidade....">
+
+                <input id="UF" type="text" name="Estado" placeholder="Seu Estado....">
+
+                <input id="Num" type="text" name="numero" placeholder="Digite o Nº...">
+
+                <input id="ilogin" type="email" name="login" placeholder="seu e-mail" autocomplete="email" required="" maxlength="40">
+
+                <input id="iMage" type="image" name="imagem">
+
+        </form>
+        <script src="jquery-3.6.2.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#Cep").blur(function(){
+                let valor = $(this).val(); 
+            $.ajax({
+                url: "https://viacep.com.br/ws/" + valor + "/json/",
+                type: "GET",
+                success: function(dados, status){
+                    $("#End").val(dados.logradouro);
+                    $("#cidade").val(dados.localidade);
+                    $("#UF").val(dados.uf);
+                },
+                error:function(){
+                    alert('CEP incorreto, digite um CEP válido')
+                }
+            })
+        })
+      });
+        </script>
+        </div>
+        </section>
+    </main>
+</body>
+</html>
