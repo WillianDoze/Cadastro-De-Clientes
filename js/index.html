@@ -19,44 +19,45 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
     <link rel="stylesheet" href="estilos/media-query.css">
 </head>
 <body>
-    
     <main>
-        <section id="login">
-            <div id="imagem"></div>
-            <h1>Cadastro de Clientes</h1>
-        <div id="cadastro">
-            <br>
-            <p>Olá, realize o seu cadastro, caso seja cadastrado, clique no campo buscar, para encontrar as informações!</p>
-            <h1>Buscar</h1>
-                <input type="text" name="nome" id="ibusca" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
 
-            <button>Clique para carregar as informações!</button>
+    <section id="login">
+        
+    <div id="imagem"></div>
+    <h1>Cadastro de Clientes</h1>
+    <div id="cadastro">
+    <br>
+    <p>Olá, realize o seu cadastro, caso seja cadastrado, clique no campo buscar, para encontrar as informações!</p>
+    <h1>Buscar</h1>
+    <input id="ibusca" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
+            
+    <form action="login.js" method="post" enctype="multipart/form-data" autocomplete="on">
 
-        <form action="login.php" method="post" autocomplete="on">
+        <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
 
-                <input id="Nome" type="text" name="nome" placeholder="Digite seu nome...">
+        <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF...." autocomplete="cc-number" required>
 
-                <input id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF...." autocomplete="cc-number">
+        <input class="validacao" id="RG" type="text" name="RG" placeholder="Digite o número do seu RG...." autocomplete="cc-number" required>
 
-                <input id="RG" id="RG" type="text" name="RG" placeholder="Digite o número do seu RG...." autocomplete="cc-number">
+        <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." required>
 
-                <input id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP....">
+        <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço....">
 
-                <input id="End" type="text" name="Endereco" placeholder="Seu endereço....">
+        <input class="validacao" id="cidade" type="text" name="Endereco" placeholder="Sua cidade....">
 
-                <input id="cidade" type="text" name="Endereco" placeholder="Sua cidade....">
+        <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado....">
 
-                <input id="UF" type="text" name="Estado" placeholder="Seu Estado....">
+        <input class="validacao" id="Num" type="text" name="numero" placeholder="Digite o Nº...">
 
-                <input id="Num" type="text" name="numero" placeholder="Digite o Nº...">
+        <input class="validacao" id="ilogin" type="email" name="login" placeholder="seu e-mail" autocomplete="email" required maxlength="60">
 
-                <input id="ilogin" type="email" name="login" placeholder="seu e-mail" autocomplete="email" required="" maxlength="40">
+        <input type="file" name="arquivo" accept=".jpg, .jpeg, .png, .gif" required>
 
-                <input id="iMage" type="image" name="imagem">
+        <input type="submit" name="enviar-formulario" value="Enviar">
+    </form>
 
-        </form>
         <script src="jquery-3.6.2.js"></script>
-        <script>
+    <script>
             $(document).ready(function(){
                 $("#Cep").blur(function(){
                 let valor = $(this).val(); 
@@ -74,9 +75,38 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             })
         })
       });
-        </script>
-        </div>
-        </section>
+    </script>
+    <script>
+        let form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
+        const arquivo = document.querySelector('input[type="file"]').files[0];
+        const extensao = arquivo.name.split(".").pop();
+
+         if (formatosPermitidos.includes(extensao)) {
+        console.log("Existe");
+        } else {
+        console.log("Não existe");
+        }
+
+        const Nome = document.querySelector("input[name='nome']").value;
+        const cpf = document.querySelector("input[name='CPF']").value;
+        const RG = document.querySelector("input[name='RG']").value;
+        const Cep = document.querySelector("input[name='CEP']").value;
+        const End = document.querySelector("input[name='Endereco']").value;
+        const cidade = document.querySelector("input[name='cidade']").value;
+        const UF = document.querySelector("input[name='Estado']").value;
+        const Num = document.querySelector("input[name='numero']").value;
+        const ilogin = document.querySelector("input[name='login']").value;
+
+        alert("Cadastro realizado com sucesso!");
+});
+
+    </script>
+    </div>
+    </section>
     </main>
 </body>
 </html>
