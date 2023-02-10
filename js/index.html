@@ -25,34 +25,24 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         
     <div id="imagem"></div>
     <h1>Cadastro de Clientes</h1>
+    <label id="relogio"  onclick="mostrarHora()" >Hora Agora! </label>
     <div id="cadastro">
-    <br>
-    <p>Olá, realize o seu cadastro, caso seja cadastrado, clique no campo buscar, para encontrar as informações!</p>
+    <p>Olá, cadastra-se ou realize a busca!!</p>
     <h1>Buscar</h1>
     <input id="ibusca" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
             
     <form action="login.js" method="post" enctype="multipart/form-data" autocomplete="on">
 
         <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
-
         <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF...."required>
-
         <input class="validacao" id="RG" type="text" name="RG" placeholder="Digite o número do seu RG...."required>
-
         <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." required>
-
         <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço....">
-
         <input class="validacao" id="cidade" type="text" name="Endereco" placeholder="Sua cidade....">
-
         <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado....">
-
         <input class="validacao" id="Num" type="text" name="numero" placeholder="Digite o Nº...">
-
         <input class="validacao" id="ilogin" type="email" name="login" placeholder="seu e-mail" autocomplete="email" required maxlength="60">
-
         <input class="validacao" type="file" name="arquivo" accept=".jpg, .jpeg, .png, .gif" required>
-
         <input id="enviar" type="submit" name="enviar-formulario" value="Enviar">
 
         
@@ -96,6 +86,66 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
     }
 });
 
+const dozeHoras = 12;
+
+const mostrarHora = function(){
+    let relogio = document.getElementById('relogio');
+   
+    relogio.innerHTML = "00:00:00 AM!"
+
+
+}
+
+const mostrarForm = function()
+{
+    const agora = new Date();
+    
+    let t = agora.toLocaleTimeString('pt-PT', {hour12: false});
+    document.getElementById('relogio').innerHTML = t;
+    
+
+    const texto_relogio = clock(horas, minutos, segundos)
+  
+    relogio.innerHTML = texto_relogio; 
+    const relogio = document.getElementById('relogio');
+  
+};
+
+    const clock = function(horas, minutos, segundos){
+    relogio.innerHTML = texto_relogio;
+    const relogio = document.getElementById('relogio');
+    let meridiano = "AM";
+
+    if (t >= dozeHoras)
+    {
+        meridiano = "PM";
+    }
+
+    if (t < 10)
+    {
+        t = '0' + t;
+    }
+    if (t < 10)
+    {
+        t = '0' + t;
+    }
+    if (t < 10)
+    {
+        t = '0' + t;
+    }
+
+    return horas + ':' + minutos + ':' + segundos + " " + meridiano + "!";
+
+};
+
+
+// const vinteQuatro = function(){
+//         let d = new Date();
+//         let t = d.toLocaleTimeString('pt-PT', {hour12: false});
+//         document.getElementById('relogio').innerHTML = t;
+//         intervalID =  setInterval(mostrarForm);
+        
+// }
 // function validateCPF(cpf) {
   
 //   cpf = cpf.replace(/[^\d]+/g, '');
