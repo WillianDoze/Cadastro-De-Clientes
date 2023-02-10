@@ -28,12 +28,12 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
     <div id="cadastro">
     <p style="text-align: center;"><b><i>Cadastra-se ou realize a busca!!</i></b></p>
     <button id="busca" onclick= buscar()>Buscar</button>
-        
+    <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF"> 
     <form action="login.js" method="post" enctype="multipart/form-data" autocomplete="on">
-        <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
+        
         <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
-        <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF...."required>
-        <input class="validacao" id="RG" type="text" name="RG" placeholder="Digite o número do seu RG...."required>
+        <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+        <input class="validacao" id="RG" type="text" name="RG" placeholder="Número do seu RG...."required>
         <input class="validacao" id="Cep" type="text" name="CEP" placeholder="Digite o seu CEP...." required>
         <input class="validacao" id="End" type="text" name="Endereco" placeholder="Seu endereço....">
         <input class="validacao" id="cidade" type="text" name="Endereco" placeholder="Sua cidade....">
@@ -83,14 +83,15 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const validar = document.querySelectorAll(".validacao");
         const values = [];
         for (let i = 0; i < validar.length; i++) {
-            if (validar[i].value) {
-                values.push(validar[i].value);
+        if (validar[i].value) {
+        values.push("\n" + validar[i].value);
         }
-        }
-        console.log(values);
-        if (values.length === validar.length) {
-        alert("Todos os campos estão preenchidos");
     }
+        if (values.length === validar.length) {
+        const date = new Date();
+        // alert("Todos os campos estão preenchidos" + "\nData e hora: " + date.toLocaleString());
+        console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
+}
 });
 
 const dozeHoras = 12;
@@ -103,8 +104,8 @@ const mostrarHora = function() {
     return;
   }
 
-  relogio.innerHTML = "00:00:00 AM!";
-  clock()
+  relogio.innerHTML = "00:00:00";
+  clock();
 };
 
 const clock = function() {
@@ -114,14 +115,6 @@ const clock = function() {
   let minutos = agora.getMinutes();
   let segundos = agora.getSeconds();
 
-  let meridiano = "AM";
-
-  if (horas >= dozeHoras) {
-    meridiano = "PM";
-  }
-  if (horas > dozeHoras) {
-    horas = horas - 12;
-  }
   if (horas < 10) {
     horas = '0' + horas;
   }
@@ -132,7 +125,7 @@ const clock = function() {
     segundos = '0' + segundos;
   }
 
-  const montar_relogio = horas + ':' + minutos + ':' + segundos + " " + meridiano + "!";
+  const montar_relogio = horas + ':' + minutos + ':' + segundos;
   const relogio = document.getElementById('relogio');
   relogio.innerText = montar_relogio;
 };
@@ -141,7 +134,21 @@ const enviar = function() {
     mostrarHora()
     console.log('Enviando formulário...');
 };
-    </script>
+
+// const inputRG = document.querySelector('#RG');
+// let rgValueChecked = false
+
+// inputRG.addEventListener('blur', function() {
+//   const rg = this.value;
+
+//   const regex = /^\d{7,10}[A-Z]?$/;
+
+//   if (!regex.test(rg)) {
+//     alert('RG inválido');
+//   }
+// });
+
+</script>
     </div>
     </section>
     </main>

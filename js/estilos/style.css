@@ -105,6 +105,17 @@ input{
     transform: translateY(-12.5px);
     
 }
+input#pesquise{
+    background-color: lightblue;
+    color: black;
+    padding: 7px;
+    margin: 10px;
+    margin-left: 0px;
+    width: calc(100% - 0px); 
+    transform: translateY(-12.5px);
+    box-shadow: 0px 0px 5px black;
+    
+}
 
 input:focus-within{
     background-color: #64dfdb;
