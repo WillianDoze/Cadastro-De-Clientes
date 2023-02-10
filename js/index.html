@@ -25,14 +25,12 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         
     <div id="imagem"></div>
     <h1>Cadastro de Clientes</h1>
-    <label id="relogio"  onclick="mostrarHora()" >Hora Agora! </label>
     <div id="cadastro">
-    <p>Olá, cadastra-se ou realize a busca!!</p>
-    <h1>Buscar</h1>
-    <input id="ibusca" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
-            
+    <p style="text-align: center;"><b><i>Cadastra-se ou realize a busca!!</i></b></p>
+    <button id="busca" onclick= buscar()>Buscar</button>
+        
     <form action="login.js" method="post" enctype="multipart/form-data" autocomplete="on">
-
+        <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF">
         <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
         <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF...."required>
         <input class="validacao" id="RG" type="text" name="RG" placeholder="Digite o número do seu RG...."required>
@@ -41,15 +39,17 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         <input class="validacao" id="cidade" type="text" name="Endereco" placeholder="Sua cidade....">
         <input class="validacao" id="UF" type="text" name="Estado" placeholder="Seu Estado....">
         <input class="validacao" id="Num" type="text" name="numero" placeholder="Digite o Nº...">
-        <input class="validacao" id="ilogin" type="email" name="login" placeholder="seu e-mail" autocomplete="email" required maxlength="60">
+        <input class="validacao" id="ilogin" type="email" name="login" placeholder="Seu e-mail" autocomplete="email" required maxlength="60">
         <input class="validacao" type="file" name="arquivo" accept=".jpg, .jpeg, .png, .gif" required>
-        <input id="enviar" type="submit" name="enviar-formulario" value="Enviar">
-
+        <input id="enviado" onclick= enviar() type="submit" name="enviar-formulario" value="Enviar">
+        <label id="relogio" style="font-size: 23px;"></label>
         
     </form>
 
         <script src="jquery-3.6.2.js"></script>
     <script>
+
+        //Validar CEP
             $(document).ready(function(){
                 $("#Cep").blur(function(){
                 let valor = $(this).val(); 
@@ -67,6 +67,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
             })
         })
       });
+
+      //Trecho da validação da foto
         const form = document.querySelector("form");
         form.addEventListener("submit", function(event) {
         event.preventDefault();
@@ -77,97 +79,68 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
          if (formatosPermitidos.includes(extensao)) {
         console.log(extensao);
         }
-        
-        const validar = document.querySelector(".validacao").value;
-        if(validar){
-            console.log(validar);
-            alert("Todos os campos preenchidos")
-    
+         
+        const validar = document.querySelectorAll(".validacao");
+        const values = [];
+        for (let i = 0; i < validar.length; i++) {
+            if (validar[i].value) {
+                values.push(validar[i].value);
+        }
+        }
+        console.log(values);
+        if (values.length === validar.length) {
+        alert("Todos os campos estão preenchidos");
     }
 });
 
 const dozeHoras = 12;
 
-const mostrarHora = function(){
-    let relogio = document.getElementById('relogio');
-   
-    relogio.innerHTML = "00:00:00 AM!"
+const mostrarHora = function() {
+  const relogio = document.getElementById('relogio');
 
+  if (!relogio) {
+    console.error('Elemento relógio não encontrado na página');
+    return;
+  }
 
-}
-
-const mostrarForm = function()
-{
-    const agora = new Date();
-    
-    let t = agora.toLocaleTimeString('pt-PT', {hour12: false});
-    document.getElementById('relogio').innerHTML = t;
-    
-
-    const texto_relogio = clock(horas, minutos, segundos)
-  
-    relogio.innerHTML = texto_relogio; 
-    const relogio = document.getElementById('relogio');
-  
+  relogio.innerHTML = "00:00:00 AM!";
+  clock()
 };
 
-    const clock = function(horas, minutos, segundos){
-    relogio.innerHTML = texto_relogio;
-    const relogio = document.getElementById('relogio');
-    let meridiano = "AM";
+const clock = function() {
+  const agora = new Date();
 
-    if (t >= dozeHoras)
-    {
-        meridiano = "PM";
-    }
+  let horas = agora.getHours();
+  let minutos = agora.getMinutes();
+  let segundos = agora.getSeconds();
 
-    if (t < 10)
-    {
-        t = '0' + t;
-    }
-    if (t < 10)
-    {
-        t = '0' + t;
-    }
-    if (t < 10)
-    {
-        t = '0' + t;
-    }
+  let meridiano = "AM";
 
-    return horas + ':' + minutos + ':' + segundos + " " + meridiano + "!";
+  if (horas >= dozeHoras) {
+    meridiano = "PM";
+  }
+  if (horas > dozeHoras) {
+    horas = horas - 12;
+  }
+  if (horas < 10) {
+    horas = '0' + horas;
+  }
+  if (minutos < 10) {
+    minutos = '0' + minutos;
+  }
+  if (segundos < 10) {
+    segundos = '0' + segundos;
+  }
 
+  const montar_relogio = horas + ':' + minutos + ':' + segundos + " " + meridiano + "!";
+  const relogio = document.getElementById('relogio');
+  relogio.innerText = montar_relogio;
 };
 
-
-// const vinteQuatro = function(){
-//         let d = new Date();
-//         let t = d.toLocaleTimeString('pt-PT', {hour12: false});
-//         document.getElementById('relogio').innerHTML = t;
-//         intervalID =  setInterval(mostrarForm);
-        
-// }
-// function validateCPF(cpf) {
-  
-//   cpf = cpf.replace(/[^\d]+/g, '');
-//   if (cpf === '') return false;
-  
-//   if (cpf.length !== 11) return false;
-  
-//   if (/^(\d)\1{10}$/.test(cpf)) return false;
-  
-//   let sum = 0;
-//   for (let i = 0; i < 9; i++) sum += parseInt(cpf.charAt(i)) * (10 - i);
-//   let rest = 11 - (sum % 11);
-//   if (rest === 10 || rest === 11) rest = 0;
-//   if (rest !== parseInt(cpf.charAt(9))) return false;
-
-//   sum = 0;
-//   for (let i = 0; i < 10; i++) sum += parseInt(cpf.charAt(i)) * (11 - i);
-//   rest = 11 - (sum % 11);
-//   if (rest === 10 || rest === 11) rest = 0;
-//   if (rest !== parseInt(cpf.charAt(10))) return false;
-//   return true;
-// }
+const enviar = function() {
+    mostrarHora()
+    console.log('Enviando formulário...');
+};
     </script>
     </div>
     </section>

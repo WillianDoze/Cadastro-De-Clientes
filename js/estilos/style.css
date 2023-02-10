@@ -19,6 +19,7 @@ body,html{
     width: 100vw;
 }
 
+
 main{
     position: relative;
     height: 100vh;
@@ -27,10 +28,14 @@ main{
 }
 section#login > h1{
     text-align: center;
+
 }
-section#login >div#cadastro > h1{
+div#cadastro >#busca{
     text-align: center;
-    font-size: 24px;
+    font-size: 18px;
+    margin: 8px;
+    margin-left: 0px;
+    padding: 0px;
 }
 
 section#login{
@@ -40,8 +45,8 @@ section#login{
     overflow: hidden;
 
     background-color: white;
-    width: 650px;
-    height: 920px;
+    width: 400px;
+    height: 900px;
     border-radius: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.315);
 
@@ -66,25 +71,24 @@ section#login > div#cadastro{
 }
 
 section#login > div#cadastro > p {
-    font-size: 1.0em;
+    font-size: 17px;
     margin: 1.5px;
+    border: black ;
 }
-
 
 section#login > div#cadastro > form{
     
     background-color: white;
-    border: 0.5px solid black;
     display: block;
     width: 100%;
     height: 33px;
-    margin: 5px;
+    margin: 0px;
     padding: 3px;
 }
 
 input{
     padding: 7px;
-    margin: 12px;
+    margin: 10px;
     margin-left: 0px;
     width: 100vw;
     
@@ -103,7 +107,7 @@ input{
 }
 
 input:focus-within{
-    background-color: white;
+    background-color: #64dfdb;
     border: none;
 }
 
