@@ -27,9 +27,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
     <h1>Cadastro de Clientes</h1>
     <div id="cadastro">
     <p style="text-align: center;"><b><i>Cadastra-se ou realize a busca!!</i></b></p>
-    <button id="busca" onclick= buscar()>Buscar</button>
     <input id="pesquise" type="text" name="nome" placeholder="Pesquise pelos seguintes metódos: Nome, RG e CPF"> 
-    <form action="login.js" method="post" enctype="multipart/form-data" autocomplete="on">
+    <form action="login.php" method="post" enctype="multipart/form-data" autocomplete="on">
         
         <input class="validacao" id="Nome" type="text" name="nome" placeholder="Digite seu nome..." required>
         <input class="validacao" id="cpf" type="text" name="CPF" placeholder="Digite o número do seu CPF utilizando:XXX.XXX.XXX-XX" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
@@ -41,12 +40,12 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         <input class="validacao" id="Num" type="text" name="numero" placeholder="Digite o Nº...">
         <input class="validacao" id="ilogin" type="email" name="login" placeholder="Seu e-mail" autocomplete="email" required maxlength="60">
         <input class="validacao" type="file" name="arquivo" accept=".jpg, .jpeg, .png, .gif" required>
-        <input id="enviado" onclick= enviar() type="submit" name="enviar-formulario" value="Enviar">
+        <input id="enviado" onclick= Enviar() type="submit" name="enviar-formulario" value="Enviar/Salvar-alterações">
         <label id="relogio" style="font-size: 23px;"></label>
         
     </form>
 
-        <script src="jquery-3.6.2.js"></script>
+    <script src="jquery-3.6.2.js"></script>
     <script>
 
         //Validar CEP
@@ -77,9 +76,8 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const arquivo = document.querySelector('input[type="file"]').files[0];
         const extensao = arquivo.name.split(".").pop();
          if (formatosPermitidos.includes(extensao)) {
-        console.log(extensao);
         }
-         
+        //Validação dos inputs
         const validar = document.querySelectorAll(".validacao");
         const values = [];
         for (let i = 0; i < validar.length; i++) {
@@ -91,9 +89,11 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         const date = new Date();
         // alert("Todos os campos estão preenchidos" + "\nData e hora: " + date.toLocaleString());
         console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
+        mostrarHora()
 }
 });
 
+//Horario no form
 const dozeHoras = 12;
 
 const mostrarHora = function() {
@@ -130,23 +130,44 @@ const clock = function() {
   relogio.innerText = montar_relogio;
 };
 
-const enviar = function() {
-    mostrarHora()
-    console.log('Enviando formulário...');
+const Enviar = function() {
+    
 };
 
-// const inputRG = document.querySelector('#RG');
-// let rgValueChecked = false
+const inputs = document.querySelectorAll('.validacao');
+const pesquise = document.querySelector('#pesquise');
 
-// inputRG.addEventListener('blur', function() {
-//   const rg = this.value;
+inputs.forEach(input => {
+  input.addEventListener('keyup', function() {
+    if (isValidCPF(this.value)) {
+      pesquise.value = this.value;
+    } else if (isValidRG(this.value)) {
+      pesquise.value = this.value;
+    } else if (isValidName(this.value)) {
+      pesquise.value = this.value;
+    } else {
+      pesquise.value = '';
+    }
+  });
+});
 
-//   const regex = /^\d{7,10}[A-Z]?$/;
+function isValidCPF(value) {
+  // Regex para validar CPF
+  const regexCPF = /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/;
+  return regexCPF.test(value);
+}
 
-//   if (!regex.test(rg)) {
-//     alert('RG inválido');
-//   }
-// });
+function isValidRG(value) {
+  // Regex para validar RG
+  const regexRG = /^\d{2}\.\d{3}\.\d{3}$/;
+  return regexRG.test(value);
+}
+
+function isValidName(value) {
+  // Regex para validar nome
+  const regexName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  return regexName.test(value);
+}
 
 </script>
     </div>
