@@ -88,6 +88,10 @@ section#login > div#campos{
     padding: 1px;
     margin-top: 10px;
 }
+section#login > div#campos:hover{
+    background-color: black;
+    border: none;
+}
 section#login > p{
     font-size: 20px;
     box-shadow: 0px 0px 2px black;
@@ -141,6 +145,7 @@ input:focus-within{
     background-color: #64dfdb;
     border: none;
 }
+
 
 
 /* form > a.botao{
