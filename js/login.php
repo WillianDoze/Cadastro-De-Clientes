@@ -2,7 +2,7 @@
  
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 $dbname = "cadastro_cliente";
  
 // Create connection
@@ -15,33 +15,30 @@ if ($conn->connect_error) {
         . $conn->connect_error);
 }
  
-$sqlquery = "INSERT INTO table VALUES
-    ('Willian da Silva Ferreira', '123456789-12', '23.236.563-5', '13170-575', 'Rua Barbara Blumer', 'Sumare', 'SP', '321', 'wfdirceu@gmail.com', 'file')"
+$sqlquery = "INSERT INTO clientes VALUES
+    ('$_POST[nome]', '$_POST[CPF]', '$_POST[RG]', '$_POST[CEP]', '$_POST[Endereco]', '$_POST[Cidade]', '$_POST[Estado]', '$_POST[Numero]', '$_POST[Email]', 'file')";
  
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sqlquery) === TRUE) {
     echo "record inserted successfully";
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo "Error: " . $sqlquery . "<br>" . $conn->error;
 }
 
-?>
-
-<?php
- 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
- 
-    // collect value of input field
-    $data = $_REQUEST['val1'];
- 
-    if (empty($data)) {
-        echo "data is empty";
-    } else {
-        echo $data;
-    }
-}
-?>
- 
 // Closing the connection.
 $conn->close();
  
 ?>
+
+
+ 
+<!-- // if ($_SERVER["REQUEST_METHOD"] == "POST") {
+ 
+//     // collect value of input field
+//     $data = $_REQUEST['val1'];
+ 
+//     if (empty($data)) {
+//         echo "data is empty";
+//     } else {
+//         echo $data;
+//     }
+// } -->
