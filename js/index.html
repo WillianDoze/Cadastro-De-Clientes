@@ -73,15 +73,15 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
       });
 
       // Trecho da validação da foto
-        // const form = document.querySelector("form");
-        // form.addEventListener("submit", function(event) {
-        // event.preventDefault();
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function(event) {
+        event.preventDefault();
 
-        // const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
-        // const arquivo = document.querySelector('input[type="file"]').files[0];
-        // const extensao = arquivo.name.split(".").pop();
-        //  if (formatosPermitidos.includes(extensao)) {
-        //}
+        const formatosPermitidos = ["png", "jpeg", "jpg", "gif"];
+        const arquivo = document.querySelector('input[type="file"]').files[0];
+        const extensao = arquivo.name.split(".").pop();
+         if (formatosPermitidos.includes(extensao)) {
+        }
         //Validação dos inputs
         const validar = document.querySelectorAll(".validacao");
         const values = [];
@@ -96,7 +96,7 @@ Gravar a data e hora da inclusão do registro e exibir no form -->
         console.log("Dados salvos em: " + "\n" + values + "\n" + "\nData e Hora: " + date.toLocaleString())
         mostrarHora()
 }
-// });
+});
 
 //Horario no form
 const dozeHoras = 12;
